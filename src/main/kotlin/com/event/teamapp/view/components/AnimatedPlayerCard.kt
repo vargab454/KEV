@@ -6,18 +6,35 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.event.teamapp.model.PlayerState
 import com.event.teamapp.model.PlayerStatus
 import kotlin.math.roundToInt
 
 @Composable
-fun AnimatedPlayerCard(player: PlayerState, targetOffset: Offset, onSlideFinished: () -> Unit) {
+fun AnimatedPlayerCard(
+    player: PlayerState,
+    targetOffset: Offset,
+    screenSize: IntSize,
+    onSlideFinished: () -> Unit
+) {
+    if (screenSize == IntSize.Zero) return
+
     val isSliding = player.status == PlayerStatus.SLIDING
 
+    val cardWidthPx = with(LocalDensity.current) { 450.dp.toPx() }
+    val cardHeightPx = with(LocalDensity.current) { 600.dp.toPx() }
+
+    val centerOffset = Offset(
+        x = (screenSize.width - cardWidthPx) / 2f,
+        y = (screenSize.height - cardHeightPx) / 2f
+    )
+
     val animOffset by animateOffsetAsState(
-        targetValue = if (isSliding) targetOffset else Offset(1920f / 2 - 150f, 1080f / 2 - 200f),
+        targetValue = if (isSliding) targetOffset else centerOffset,
         animationSpec = tween(800, easing = FastOutSlowInEasing),
         finishedListener = { if (isSliding) onSlideFinished() }
     )
@@ -30,7 +47,7 @@ fun AnimatedPlayerCard(player: PlayerState, targetOffset: Offset, onSlideFinishe
     Box(
         modifier = Modifier
             .offset { IntOffset(animOffset.x.roundToInt(), animOffset.y.roundToInt()) }
-            .size(300.dp * animScale, 400.dp * animScale)
+            .size(450.dp * animScale, 600.dp * animScale)
             .alpha(animScale)
     ) {
         if (animScale > 0.1f) {

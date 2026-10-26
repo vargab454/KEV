@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.event.teamapp.model.AppState
 import com.event.teamapp.model.PlayerStatus
@@ -31,7 +32,8 @@ fun AppScreen(viewModel: MainViewModel) {
     var editingRegion by remember { mutableStateOf<Int?>(null) }
     var newRegionName by remember { mutableStateOf("") }
 
-    // Hunger Games Color Palette
+    var screenSize by remember { mutableStateOf(IntSize.Zero) }
+
     val bgGradient = Brush.radialGradient(
         colors = listOf(Color(0xFF2C3E50), Color(0xFF000000)),
         radius = 1500f
@@ -39,6 +41,7 @@ fun AppScreen(viewModel: MainViewModel) {
     val goldAccent = Color(0xFFD4AF37)
     val columnBg = Color(0x33000000)
 
+    // Error Screen Fallback
     if (errorMessage != null) {
         Box(modifier = Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center) {
             Text(
@@ -55,6 +58,9 @@ fun AppScreen(viewModel: MainViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(bgGradient)
+            .onGloballyPositioned { coordinates ->
+                screenSize = coordinates.size
+            }
             .clickable { viewModel.onScreenClick() }
     ) {
         Row(
@@ -109,6 +115,7 @@ fun AppScreen(viewModel: MainViewModel) {
             AnimatedPlayerCard(
                 player = activePlayer,
                 targetOffset = targetOffset,
+                screenSize = screenSize,
                 onSlideFinished = { viewModel.onSlideAnimationFinished(activePlayer.data.name) }
             )
         }
