@@ -1,6 +1,6 @@
 # Team Generator
 
-A Compose for Desktop application that dynamically sorts players into 5 regional teams with animated cards, customizable team names, and interactive visual states.
+A Desktop application that dynamically sorts players into 5 regional teams with animated cards, customizable team names, and interactive visual states.
 
 ## 🛠 Prerequisites
 
@@ -42,7 +42,10 @@ Run the application from CLI using the following commands:
 ./gradlew run -- Runs the application
 
 ## About the application
-In order to support full screen mode, the method of closing the application is using the `ALT+F4` shortcut as of now.
-On startup players.json gets parsed. Players show up and get put into their respective `Disctricts` on mouse click in the order they are present in the JSON file itself.
-After all players are in their places their names become clickable. When they are clicked in this state their player card will show up with a death animation indicating their demise.
-After all players are eliminated the application can still only be closed with `ALT+F4`
+- In order to support full screen mode, the method of closing the application is using the `ALT+F4` shortcut as of now.
+- On startup `players.json` gets parsed.
+- Players show up and get put into their respective `Disctricts`. This flow can be controlled by mouse clicks.
+  - This happens in the order players are defined in the JSON file.
+- After all players are in their places, their names become clickable.
+  - On click, their player card shows up with a death animation, indicating their demise.
+- After all players are eliminated the application can only be closed with `ALT+F4` still.
