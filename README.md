@@ -40,3 +40,9 @@ This file defines the players, their assigned regions (1-5), and their image fil
 Run the application from CLI using the following commands:
 ./gradlew build -- Builds the project
 ./gradlew run -- Runs the application
+
+## About the application
+In order to support full screen mode, the method of closing the application is using the `ALT+F4` shortcut as of now.
+On startup players.json gets parsed. Players show up and get put into their respective `Disctricts` on mouse click in the order they are present in the JSON file itself.
+After all players are in their places their names become clickable. When they are clicked in this state their player card will show up with a death animation indicating their demise.
+After all players are eliminated the application can still only be closed with `ALT+F4`
