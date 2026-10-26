@@ -19,6 +19,7 @@ Modify `players.json` in the root directory of the project.
 This file defines the players, their assigned regions (1-5), and their image filenames.
 
 **Required JSON Format:**
+```json
 [
   {
     "name": "John Doe",
@@ -33,6 +34,7 @@ This file defines the players, their assigned regions (1-5), and their image fil
     "imageFileName": "player2.png"
   }
 ]
+```
 
 ### 3. Run the project
 Run the application from CLI using the following commands:
