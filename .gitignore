@@ -1,0 +1,20 @@
+# Gradle Wrapper
+gradlew
+gradlew.bat
+gradle/wrapper/
+
+# IntelliJ IDEA / JetBrains
+.idea/
+*.iml
+out/
+
+# Gradle Build Output & Caches
+.gradle/
+build/
+
+# Local configuration
+local.properties
+
+# OS specific files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Bartos Bence",
+    "nickname": "Bartos",
+    "region": 1,
+    "imageFileName": "Bartos.png"
+  },
+  {
+    "name": "Bognár Balázs László",
+    "nickname": "Újvi",
+    "region": 1,
+    "imageFileName": "Ujvi.png"
+  },
+  {
+    "name": "Wernsdörfer Albert",
+    "nickname": "Ingatlan",
+    "region": 2,
+    "imageFileName": "Albi.png"
+  },
+  {
+    "name": "Barzaghi Sebastian David ",
+    "nickname": "Szebi",
+    "region": 5,
+    "imageFileName": "Szebi.png"
+  },
+  {
+    "name": "Konkolyi Brigitta",
+    "nickname": "Gitta",
+    "region": 4,
+    "imageFileName": "Brigi.png"
+  },
+  {
+    "name": "Stefán Márton",
+    "nickname": "Stefi",
+    "region": 2,
+    "imageFileName": "Stefi.png"
+  },
+  {
+    "name": "Boross Benedek",
+    "nickname": "Benkton",
+    "region": 3,
+    "imageFileName": "Benkton.png"
+  }
+]
