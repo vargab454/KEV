@@ -11,13 +11,8 @@ repositories {
 }
 
 dependencies {
-    // Compose Desktop UI framework
     implementation(compose.desktop.currentOs)
-
-    // JSON Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
-
-    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.10.1")
 }
 

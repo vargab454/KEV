@@ -1,15 +1,20 @@
 package com.event.teamapp.view
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.event.teamapp.model.AppState
 import com.event.teamapp.model.PlayerStatus
@@ -26,8 +31,16 @@ fun AppScreen(viewModel: MainViewModel) {
     var editingRegion by remember { mutableStateOf<Int?>(null) }
     var newRegionName by remember { mutableStateOf("") }
 
+    // Hunger Games Color Palette
+    val bgGradient = Brush.radialGradient(
+        colors = listOf(Color(0xFF2C3E50), Color(0xFF000000)),
+        radius = 1500f
+    )
+    val goldAccent = Color(0xFFD4AF37)
+    val columnBg = Color(0x33000000)
+
     if (errorMessage != null) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center) {
             Text(
                 text = errorMessage!!,
                 color = Color.Red,
@@ -41,20 +54,27 @@ fun AppScreen(viewModel: MainViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(bgGradient)
             .clickable { viewModel.onScreenClick() }
     ) {
-        Row(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             for (region in 1..5) {
                 Column(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
+                        .background(columnBg, shape = RoundedCornerShape(8.dp))
+                        .border(1.dp, goldAccent.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = regionNames[region] ?: "Region $region",
-                        style = MaterialTheme.typography.h5,
+                        text = (regionNames[region] ?: "District $region").uppercase(),
+                        style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
+                        color = goldAccent,
                         modifier = Modifier.clickable {
                             newRegionName = regionNames[region] ?: ""
                             editingRegion = region
@@ -103,19 +123,29 @@ fun AppScreen(viewModel: MainViewModel) {
         if (editingRegion != null) {
             AlertDialog(
                 onDismissRequest = { editingRegion = null },
-                title = { Text("Rename Region") },
+                backgroundColor = Color(0xFF1E1E1E),
+                title = { Text("Rename District", color = goldAccent) },
                 text = {
                     TextField(
                         value = newRegionName,
                         onValueChange = { newRegionName = it },
-                        singleLine = true
+                        singleLine = true,
+                        colors = TextFieldDefaults.textFieldColors(
+                            textColor = Color.White,
+                            backgroundColor = Color.Black,
+                            focusedIndicatorColor = goldAccent,
+                            cursorColor = goldAccent
+                        )
                     )
                 },
                 confirmButton = {
-                    Button(onClick = {
-                        viewModel.updateRegionName(editingRegion!!, newRegionName)
-                        editingRegion = null
-                    }) { Text("Save") }
+                    Button(
+                        onClick = {
+                            viewModel.updateRegionName(editingRegion!!, newRegionName)
+                            editingRegion = null
+                        },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = goldAccent)
+                    ) { Text("Save", color = Color.Black) }
                 }
             )
         }

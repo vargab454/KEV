@@ -38,15 +38,15 @@ fun DeathOverlay(player: PlayerState, onAnimationFinished: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.7f * alphaAnim)),
+            .background(Color.Black.copy(alpha = 0.85f * alphaAnim)),
         contentAlignment = Alignment.Center
     ) {
         Box(modifier = Modifier.size(300.dp, 400.dp).alpha(alphaAnim)) {
             PlayerCard(player)
 
             Canvas(modifier = Modifier.fillMaxSize().padding(32.dp)) {
-                val strokeWidth = 16.dp.toPx() * scaleXAnim
-                val color = Color.Red.copy(alpha = alphaAnim)
+                val strokeWidth = 24.dp.toPx() * scaleXAnim
+                val color = Color(0xFF8B0000).copy(alpha = alphaAnim)
 
                 drawLine(color, Offset(0f, 0f), Offset(size.width, size.height), strokeWidth = strokeWidth)
                 drawLine(color, Offset(size.width, 0f), Offset(0f, size.height), strokeWidth = strokeWidth)

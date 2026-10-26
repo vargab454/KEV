@@ -13,7 +13,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Team Generator",
         state = rememberWindowState(placement = WindowPlacement.Fullscreen),
-        undecorated = true // This hides the Windows/Mac title bar and borders
+        undecorated = true
     ) {
         val viewModel = remember { MainViewModel() }
         AppScreen(viewModel)

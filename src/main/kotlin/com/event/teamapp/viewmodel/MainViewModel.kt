@@ -15,10 +15,9 @@ class MainViewModel {
     private val _players = MutableStateFlow<List<PlayerState>>(emptyList())
     val players: StateFlow<List<PlayerState>> = _players.asStateFlow()
 
-    private val _regionNames = MutableStateFlow((1..5).associateWith { "Region $it" })
+    private val _regionNames = MutableStateFlow((1..5).associateWith { "District $it" })
     val regionNames: StateFlow<Map<Int, String>> = _regionNames.asStateFlow()
 
-    // New state to hold our error message
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
@@ -38,11 +37,9 @@ class MainViewModel {
                 val parsedData = Json.decodeFromString<List<PlayerData>>(jsonString)
                 _players.value = parsedData.map { PlayerState(it) }
             } catch (e: Exception) {
-                // Catches syntax errors in the JSON file
                 _errorMessage.value = "Error reading players.json: ${e.message}"
             }
         } else {
-            // File is completely missing
             _errorMessage.value = "Critical Error: 'players.json' was not found in the application root directory."
         }
     }
@@ -52,7 +49,7 @@ class MainViewModel {
     }
 
     fun onScreenClick() {
-        if (_errorMessage.value != null) return // Ignore clicks if there's an error
+        if (_errorMessage.value != null) return
 
         when (_appState.value) {
             AppState.DISTRIBUTION_WAITING_FOR_CLICK -> showNextPlayerInCenter()
